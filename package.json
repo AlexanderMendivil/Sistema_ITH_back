@@ -1,0 +1,17 @@
+{
+  "name": "sistema_lab_back",
+  "version": "1.0.0",
+  "description": "Backend del sistema de control para el laboratorio del ITH",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ivan Alexander Mendivil Araujo",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.5.0",
+    "xlsx": "^0.18.5"
+  }
+}
