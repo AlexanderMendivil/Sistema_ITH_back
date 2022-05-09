@@ -1,6 +1,6 @@
 const XLSX = require("xlsx");
 
-const readExcelStudent = ( ruta ) => {
+const readExcel = ( ruta ) => {
     const workbook = XLSX.readFile(ruta);
     const workbookSheet = workbook.SheetNames;
     
@@ -9,15 +9,15 @@ const readExcelStudent = ( ruta ) => {
     return dataExcelStudent;
 }
 
-export const infoStudent = (badgeNumber) => {
-    const infoStudents = readExcelStudent("0_inscritos_detalle_ESCOLARES20221.xls");
+const infoStudent = (badgeNumber) => {
+    const infoStudents = readExcel("0_inscritos_detalle_ESCOLARES20221.xls");
 
     const info = search(infoStudents, infoStudents.length, badgeNumber)
     return info;
 }
 
-export const infoEmployee = (badgeNumber) => {
-    const infoEmployees = readExcelStudent("Personal-tarjeta20221.xls");
+const infoEmployee = (badgeNumber) => {
+    const infoEmployees = readExcel("Personal-tarjeta20221.xls");
 
     const info = search(infoEmployees, infoEmployees.length, badgeNumber)
     return info;
@@ -44,3 +44,5 @@ const search = (arr, len, value) => {
 
         }
 }
+
+module.exports={infoStudent, infoEmployee}
