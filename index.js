@@ -24,3 +24,5 @@ io.on("connection", socket =>{
 
     })
 })
+
+console.log(`Server running in port:${PORT}`)
