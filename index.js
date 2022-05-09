@@ -11,14 +11,15 @@ const io = require("socket.io")(PORT,{
 
 io.on("connection", socket =>{
 
-    socket.on("send-num_control", (badgeNumber) =>{
-        
+    socket.on("message", (badgeNumber) =>{
+        console.log(badgeNumber);
+
         if(badgeNumber.toString().length > 4){
             const resultInfoStudent = infoStudent(badgeNumber);
-            socket.broadcast.emit("info-alumno", resultInfoStudent);
+            io.emit("message",resultInfoStudent);
         }else{
             const resultInfoEmployee = infoEmployee(badgeNumber);
-            socket.broadcast.emit("info-empleado", resultInfoEmployee);
+            io.emit("message",resultInfoEmployee);
 
         }
 
