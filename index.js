@@ -1,29 +1,33 @@
 const { infoStudent } = require("./Excel_Handle/ExcelHandling")
 const { infoEmployee } = require("./Excel_Handle/ExcelHandling")
 
+const express = require("express")
+const cors = require("cors")
+
 const PORT = process.env.PORT || 3000;
+const app = express()
 
-const io = require("socket.io")(PORT,{
-    cors:{
-        origin: false
-    }
-});
+app.use(cors());
+app.use(express.json());
 
-io.on("connection", socket =>{
-
-    socket.on("message", (badgeNumber) =>{
-        console.log(badgeNumber);
-
-        if(badgeNumber.toString().length > 4){
-            const resultInfoStudent = infoStudent(badgeNumber);
-            io.emit("message",resultInfoStudent);
+app.post("/", (req, res)=>{
+        let { data } = req.body;
+        if(data.toString().length > 4){
+            const student = infoStudent(data);
+            res.send(student)
+            
         }else{
-            const resultInfoEmployee = infoEmployee(badgeNumber);
-            io.emit("message",resultInfoEmployee);
-
+            const employee = infoEmployee(data)
+            res.send(employee)
         }
-
     })
+
+app.get("/", (req, res)=>{
+    const result = infoStudent("21331108");
+    res.send(result)
 })
 
-console.log(`Server running in port:${PORT}`)
+
+app.listen(PORT, ()=>{
+    console.log(`running: ${PORT}`)
+});
