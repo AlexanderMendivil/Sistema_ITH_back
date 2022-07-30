@@ -30,24 +30,6 @@ const search = (arr, len, value) => {
         if(value === arr[i].no_de_control)
         return arr[i]
     }
-    // if (arr[len - 1].no_de_control == value)
-    //         return arr[i];
-    
-    //     let backup = arr[len - 1];
-    //     arr[len - 1].no_de_control = value;
-    //     for (let i = 0;; i++) {
-                
-    //         if (arr[i] == value) {
-                    
-    //             arr[len - 1].no_de_control = backup;
-    
-    //             if (i < len - 1)
-    //                 return arr[i];
-    
-    //             return "Not Found";
-    //         }
-
-    //     }
 }
 
 module.exports={infoStudent, infoEmployee}
