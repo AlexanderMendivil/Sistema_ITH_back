@@ -1,18 +1,33 @@
 const config = require('./DBConfig');
 const mssql = require('mssql');
 
-const getAlumnByName = async ( nombre )  =>{
+const getUserByControl = async ( control )  =>{
     
     try{
 
-        let pool = await mssql.connect(config);
-        let req = await pool.request().query(`SELECT * FROM LaboratorioL5 WHERE nombre_alumno = '${nombre}'`);
-        return req.recordsets;
+        await mssql.connect(config);
+        let req = await mssql.query(`SELECT * FROM LaboratorioL5 WHERE no_de_control = '${control}'`);
+        return req.recordset;
     }catch(e){
         console.log(e);
     }
 }
 
+const getAdminUser = async ( name, password ) => {
+    
+    try{
+
+        await mssql.connect(config);
+        let req = await mssql.query(`SELECT * FROM USERS WHERE name = '${name}' and password ='${password}'`);
+        
+        return req.recordset;
+    
+    }catch(e){
+
+        console.log(e);
+    }
+}
 module.exports = {
-    getAlumnByName,
+    getUserByControl,
+    getAdminUser,
 }
