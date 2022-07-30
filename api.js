@@ -1,6 +1,6 @@
 const express = require("express")
 const cors = require("cors")
-const db = require('./DBConfig/index');
+const {getAllUsers, getLogin, getUserByControl } = require('./DBConfig/index');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -16,22 +16,46 @@ router.use((req, res, next) => {
     next();
 });
 
+router.route('/users').get( async ( req, res ) => {
+     try{
+         let results = await getAllUsers();
+         res.send( results );
+    }catch(err){
+         console.log(err)
+    }
 
-router.route('/alumn/:control').get(( req, res ) => {
-     const { control } = req.params;
-    db.getUserByControl( control ).then( results => res.send( results ) ).catch(err => console.log(err));
 });
 
-router.route('/auth').post(( req, res ) => {
-     const { name, password } = req.body;
-    db.getAdminUser(name, password).then( results => {
+router.route('/user/:control').get( async ( req, res ) => {
+     
+    const { control } = req.params;
 
+     try{
+         let results = await getUserByControl( control );
+         res.send( results )
+    }catch(err){
+         console.log(err)
+    }
+
+});
+
+router.route('/auth').post( async ( req, res ) => {
+
+     const { name, password } = req.body;
+
+     try{
+
+        let results = await getLogin(name, password)
+     
         if(results.length === 0 ){
             res.send({"Error": "Nombre o contraseña incorrectos"})
         }else{
             res.send(results);
         }
-    });
+
+    }catch(err){
+        console.log(err);
+    }
 });
 
 

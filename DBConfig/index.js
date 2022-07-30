@@ -1,6 +1,17 @@
 const config = require('./DBConfig');
 const mssql = require('mssql');
 
+
+const getAllUsers = async () =>{
+    try{
+        await mssql.connect(config);
+        let req = await mssql.query(`SELECT * FROM LaboratorioL5`);
+        return req.recordset;
+    }catch(e){
+        console.log(e);
+    }
+}
+
 const getUserByControl = async ( control )  =>{
     
     try{
@@ -13,7 +24,7 @@ const getUserByControl = async ( control )  =>{
     }
 }
 
-const getAdminUser = async ( name, password ) => {
+const getLogin = async ( name, password ) => {
     
     try{
 
@@ -28,6 +39,7 @@ const getAdminUser = async ( name, password ) => {
     }
 }
 module.exports = {
+    getAllUsers,
     getUserByControl,
-    getAdminUser,
+    getLogin,
 }
