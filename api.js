@@ -1,6 +1,6 @@
 const express = require("express")
 const cors = require("cors")
-const { getAllUsers, getLogin, getUserByControl, registeredUsers } = require('./DBConfig/index');
+const { getAllUsers, getRegisteredUsers, getLogin, getUserByControl } = require('./DBConfig/index')
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -25,10 +25,9 @@ router.route('/users').get( async ( req, res ) => {
     }
 });
 
-// CREANDO ENDPOINT PARA LA BASE DE DATOS REGISTRO
 router.route('/records').get( async ( req, res ) => {
     try{
-         let results = await registeredUsers();
+         let results = await getRegisteredUsers();
          res.send( results );
     }catch(err){
          console.log(err)

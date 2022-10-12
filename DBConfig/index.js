@@ -1,7 +1,5 @@
 const config = require('./DBConfig');
-const config2 = require('./DBConfig2');
 const mssql = require('mssql');
-
 
 const getAllUsers = async () =>{
     try{
@@ -13,11 +11,10 @@ const getAllUsers = async () =>{
     }
 }
 
-// OBTENIENDO LOS DATOS DE LA BASE DE DATOS REGISTRO
-const registeredUsers = async () =>{
+const getRegisteredUsers = async () =>{
     try{
-        await mssql.connect(config2);
-        let req = await mssql.query(`SELECT * FROM Registros`);
+        await mssql.connect(config);
+        let req = await mssql.query(`select * from LAB_SISTEMAS.dbo.LaboratorioL5 l join REGISTRO_HUELLA.dbo.Registros r on l.no_de_control = r.no_control`);
         return req.recordset;
     }catch(e){
         console.log(e);
@@ -53,7 +50,7 @@ const getLogin = async ( name, password ) => {
 
 module.exports = {
     getAllUsers,
+    getRegisteredUsers,
     getUserByControl,
     getLogin,
-    registeredUsers,
 }
